@@ -1,6 +1,11 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Pool, PoolClient, QueryResult, QueryResultRow } from 'pg';
+import {
+  Pool,
+  type PoolClient,
+  type QueryResult,
+  type QueryResultRow,
+} from 'pg';
 import { EnvironmentVariables } from 'src/config/env.config';
 
 @Injectable()

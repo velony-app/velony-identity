@@ -77,6 +77,10 @@ export class UserEntity extends Entity {
     return this._avatarPath;
   }
 
+  public get passwordHash(): PasswordHash | null {
+    return this._passwordHash;
+  }
+
   public get email(): Email | null {
     return this._email;
   }
