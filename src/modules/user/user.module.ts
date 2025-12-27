@@ -26,5 +26,6 @@ import { UserCommandRepositoryPg } from './infrastructure/repositories/user.comm
       useClass: UserCommandRepositoryPg,
     },
   ],
+  exports: [UserCommandRepository],
 })
 export class UserModule {}

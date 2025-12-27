@@ -4,10 +4,10 @@ import { StoragePath } from 'src/shared/domain/value-objects/storage-path.vo';
 import { v7 as uuidv7 } from 'uuid';
 
 import { UserAvatarPathUpdatedDomainEvent } from '../domain-events/user-avatar-path-updated.domain-event';
+import { UserCreatedDomainEvent } from '../domain-events/user-created.domain-event';
 import { UserNameUpdatedDomainEvent } from '../domain-events/user-name-updated.domain-event';
 import { UserPasswordRemovedDomainEvent } from '../domain-events/user-password-removed.domain-event';
 import { UserPasswordUpdatedDomainEvent } from '../domain-events/user-password-updated.domain-event';
-import { UserRegisteredDomainEvent } from '../domain-events/user-registered.domain-event';
 import { UserUsernameUpdatedDomainEvent } from '../domain-events/user-username-updated.domain-event';
 import { InvalidPasswordException } from '../exceptions/invalid-password.exception';
 import { MissingAuthenticationMethodException } from '../exceptions/missing-authentication-method.exception';
@@ -113,22 +113,37 @@ export class UserEntity extends Entity {
     this._domainEvents.push(event);
   }
 
-  public static async registerLocal(params: {
+  public static async create(props: {
     name: Name;
     username: Username;
-    password: Password;
-  }) {
+    avatarPath?: StoragePath | null;
+    password?: Password | null;
+    email?: Email | null;
+    phoneNumber?: PhoneNumber | null;
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date | null;
+  }): Promise<UserEntity> {
     const newUser = new UserEntity({
       id: uuidv7(),
-      name: params.name,
-      username: params.username,
-      passwordHash: await params.password.toHash(),
+      name: props.name,
+      username: props.username,
+      avatarPath: props.avatarPath,
+      passwordHash: (await props.password?.toHash()) ?? null,
+      email: props.email,
+      phoneNumber: props.phoneNumber,
+      createdAt: props.createdAt,
+      updatedAt: props.updatedAt,
+      deletedAt: props.deletedAt,
     });
 
     newUser.addDomainEvent(
-      new UserRegisteredDomainEvent(newUser.id, {
-        name: newUser._name.value,
-        username: newUser._username.value,
+      new UserCreatedDomainEvent(newUser.id, {
+        name: newUser.name.value,
+        username: newUser.username.value,
+        avatarPath: newUser.avatarPath?.value ?? null,
+        email: newUser.email?.value ?? null,
+        phoneNumber: newUser.phoneNumber?.value ?? null,
       }),
     );
 

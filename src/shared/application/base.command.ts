@@ -1,6 +1,6 @@
 export declare const COMMAND_BRAND: unique symbol;
 
-export abstract class Command<TProps, TContext> {
+export abstract class Command<TProps = void, TContext = void> {
   readonly [COMMAND_BRAND]: Command<TProps, TContext>;
 
   constructor(
