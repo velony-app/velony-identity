@@ -9,7 +9,7 @@ import { UpdateUserPasswordHandler } from './application/commands/handlers/updat
 import { UpdateUserUsernameHandler } from './application/commands/handlers/update-user-username.handler';
 import { UserCommandRepository } from './domain/repositories/user.command.repository';
 import { UserController } from './infrastructure/http/user.controller';
-import { UserCommandRepositoryPg } from './infrastructure/repositories/user.command.repository.pg';
+import { PgUserCommandRepository } from './infrastructure/repositories/pg-user.command.repository';
 
 @Module({
   imports: [CqrsModule, PgModule],
@@ -23,7 +23,7 @@ import { UserCommandRepositoryPg } from './infrastructure/repositories/user.comm
 
     {
       provide: UserCommandRepository,
-      useClass: UserCommandRepositoryPg,
+      useClass: PgUserCommandRepository,
     },
   ],
   exports: [UserCommandRepository],

@@ -8,7 +8,7 @@ import { PasswordHash } from '../../domain/value-objects/password-hash.vo';
 import { PhoneNumber } from '../../domain/value-objects/phone-number.vo';
 import { Username } from '../../domain/value-objects/username.vo';
 
-export class UserCommandMapperPg {
+export class PgUserCommandMapper {
   public static toEntity(props: {
     uuid: AggregateId;
     name: string;

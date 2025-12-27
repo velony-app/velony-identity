@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AggregateId } from 'src/shared/domain/base.entity';
 import { PgService } from 'src/shared/infrastructure/persistence/pg/pg.service';
 
-import { UserCommandMapperPg } from './user.command.mapper.pg';
+import { PgUserCommandMapper } from './pg-user.command.mapper';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { UserCommandRepository } from '../../domain/repositories/user.command.repository';
 import { Username } from '../../domain/value-objects/username.vo';
@@ -21,7 +21,7 @@ type UserEntityRow = {
 };
 
 @Injectable()
-export class UserCommandRepositoryPg implements UserCommandRepository {
+export class PgUserCommandRepository implements UserCommandRepository {
   public constructor(private readonly pgService: PgService) {}
 
   public async findById(id: AggregateId): Promise<UserEntity | null> {
@@ -45,7 +45,7 @@ export class UserCommandRepositoryPg implements UserCommandRepository {
     );
     if (!result.rows.at(0)) return null;
 
-    return UserCommandMapperPg.toEntity(result.rows[0]);
+    return PgUserCommandMapper.toEntity(result.rows[0]);
   }
 
   public async findByUsername(username: Username): Promise<UserEntity | null> {
@@ -69,11 +69,11 @@ export class UserCommandRepositoryPg implements UserCommandRepository {
     );
     if (!result.rows.at(0)) return null;
 
-    return UserCommandMapperPg.toEntity(result.rows[0]);
+    return PgUserCommandMapper.toEntity(result.rows[0]);
   }
 
   public async save(entity: UserEntity): Promise<void> {
-    const data = UserCommandMapperPg.toPersistence(entity);
+    const data = PgUserCommandMapper.toPersistence(entity);
 
     await this.pgService.query(
       `
