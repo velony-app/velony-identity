@@ -13,30 +13,22 @@ export class UserPasswordUpdatedEventHandler {
   ) {}
 
   @OnEvent(UserPasswordUpdatedDomainEvent.TYPE)
-  async handle(
-    event: UserPasswordUpdatedDomainEvent,
-    context: EventContext,
-  ): Promise<void> {
-    await this.kafkaService.client.producer.send({
-      topic: 'identity.user',
-      messages: [
-        {
-          key: event.aggregateId,
-          value: Buffer.from(
-            JSON.stringify({
-              meta: {
-                event_id: event.id,
-                event_type: event.type,
-                user_id: context.userId,
-                correlation_id: context.correlationId,
-                source: this.configService.get('SERVICE_NAME'),
-                occurred_at: event.occurredAt.toISOString(),
-              },
-              data: {},
-            }),
-          ),
-        },
-      ],
+  handle(event: UserPasswordUpdatedDomainEvent, context: EventContext): void {
+    this.kafkaService.client.emit('identity.user', {
+      key: event.aggregateId,
+      value: Buffer.from(
+        JSON.stringify({
+          meta: {
+            event_id: event.id,
+            event_type: event.type,
+            user_id: context.userId,
+            correlation_id: context.correlationId,
+            source: this.configService.get('SERVICE_NAME'),
+            occurred_at: event.occurredAt.toISOString(),
+          },
+          data: {},
+        }),
+      ),
     });
   }
 }
