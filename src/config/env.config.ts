@@ -1,17 +1,18 @@
 import { Transform } from 'class-transformer';
 import {
-  IsString,
-  IsOptional,
-  IsInt,
-  Min,
-  Max,
-  ValidatorConstraint,
-  ValidatorConstraintInterface,
-  Validate,
-  IsUrl,
   IsEmail,
+  IsInt,
+  IsOptional,
+  IsString,
+  IsUrl,
+  Max,
+  Min,
+  Validate,
+  ValidatorConstraint,
 } from 'class-validator';
-import { isTimeString } from 'src/shared/utils/time.util';
+import { type ValidatorConstraintInterface } from 'class-validator';
+
+import { isTimeString } from '@common/utils/time.util';
 
 @ValidatorConstraint({ name: 'isTimeString', async: false })
 export class IsTimeString implements ValidatorConstraintInterface {
@@ -23,18 +24,14 @@ export class IsTimeString implements ValidatorConstraintInterface {
 export class EnvironmentVariables {
   @IsOptional()
   @IsString()
-  SERVICE_ENV: 'development' | 'production' = 'development';
-
-  @IsOptional()
-  @IsString()
-  SERVICE_NAME: string = 'identity-service';
+  NODE_ENV: 'test' | 'development' | 'production' = 'development';
 
   @IsOptional()
   @Transform(({ value }) => parseInt(value, 10))
   @IsInt()
   @Min(1)
   @Max(65535)
-  SERVICE_PORT: number = 5001;
+  PORT: number = 5001;
 
   @IsOptional()
   @IsString()

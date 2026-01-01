@@ -2,9 +2,11 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 
-import { AppModule } from './app.module';
-import { TypedConfigService } from './config/typed-config.service';
-import { BadValidationRequest } from './shared/infrastructure/exceptions/bad-validation-error.exception';
+import { TypedConfigService } from '@config/typed-config.service';
+
+import { BadValidationRequest } from '@common/exceptions/bad-validation-error.exception';
+
+import { AppModule } from '@/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,7 +14,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: configService.get('FRONTEND_ORIGIN'),
-    credentials: configService.get('SERVICE_ENV') === 'production',
+    credentials: configService.get('NODE_ENV') === 'production',
   });
 
   app.use(cookieParser());
@@ -30,7 +32,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  await app.listen(configService.get('SERVICE_PORT'));
+  await app.listen(configService.get('PORT'));
 }
 
 bootstrap();
