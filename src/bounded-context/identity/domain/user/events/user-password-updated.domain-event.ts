@@ -5,6 +5,6 @@ export class UserPasswordUpdatedDomainEvent extends DomainEvent {
   public static readonly Type = 'UserPasswordUpdated';
 
   constructor(aggregateId: AggregateId) {
-    super(aggregateId);
+    super(aggregateId, null);
   }
 }

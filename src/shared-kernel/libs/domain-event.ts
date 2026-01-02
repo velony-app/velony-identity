@@ -6,7 +6,7 @@ export declare const DOMAIN_EVENT_BRAND: unique symbol;
 
 export type DomainEventId = string;
 
-export abstract class DomainEvent<TPayload = void> {
+export abstract class DomainEvent<TPayload = null> {
   private readonly [DOMAIN_EVENT_BRAND]: DomainEvent<TPayload>;
 
   public constructor(aggregateId: AggregateId, payload: TPayload) {
