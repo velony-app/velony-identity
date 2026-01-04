@@ -8,9 +8,8 @@ import { BadValidationRequest } from '@common/exceptions/bad-validation-error.ex
 import { AuthExceptionFilter } from '@common/filters/authentication-exception.filter';
 
 import { AppModule } from '@/app.module';
-
-import { UserExceptionFilter } from '@identity-infrastructure/http/filters/user-exception.filter';
-import { VerificationExceptionFilter } from '@identity-infrastructure/http/filters/verification-exception.filter';
+import { UserExceptionFilter } from '@identity/presentation/http/filters/user-exception.filter';
+import { VerificationExceptionFilter } from '@identity/presentation/http/filters/verification-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

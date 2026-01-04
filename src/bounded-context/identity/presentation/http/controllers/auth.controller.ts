@@ -13,9 +13,9 @@ import { type Request, type Response } from 'express';
 import { LoginLocalCommand } from '@identity-application/commands/login-local/login-local.command';
 import { RefreshTokenCommand } from '@identity-application/commands/refresh-token/refresh-token.command';
 import { RegisterLocalCommand } from '@identity-application/commands/register-local/register-local.command';
-import { LoginLocalDto } from '@identity-infrastructure/http/dtos/login-local.dto';
-import { RegisterLocalDto } from '@identity-infrastructure/http/dtos/register-local.dto';
 import { CookieAuthService } from '@identity-infrastructure/services/cookie-auth.service';
+import { LoginLocalDto } from '@identity-presentation/http/dtos/login-local.dto';
+import { RegisterLocalDto } from '@identity-presentation/http/dtos/register-local.dto';
 
 @Controller('auth')
 export class AuthController {

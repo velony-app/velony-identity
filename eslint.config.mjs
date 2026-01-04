@@ -157,6 +157,10 @@ export default [
           type: 'identity-infrastructure',
           pattern: 'src/bounded-context/identity/infrastructure/**',
         },
+        {
+          type: 'identity-presentation',
+          pattern: 'src/bounded-context/identity/presentation/**',
+        },
       ],
     },
 
@@ -197,6 +201,17 @@ export default [
                 'shared-kernel',
                 'identity-domain',
                 'identity-application',
+              ],
+            },
+            {
+              from: ['identity-presentation'],
+              allow: [
+                'config',
+                'common',
+                'shared-kernel',
+                'identity-domain',
+                'identity-application',
+                'identity-infrastructure',
               ],
             },
           ],

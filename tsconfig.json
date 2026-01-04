@@ -33,6 +33,9 @@
       "@identity-infrastructure/*": [
         "src/bounded-context/identity/infrastructure/*"
       ],
+      "@identity-presentation/*": [
+        "src/bounded-context/identity/presentation/*"
+      ],
       "@identity/*": ["src/bounded-context/identity/*"],
 
       "@/*": ["src/*"]

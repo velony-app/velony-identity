@@ -21,8 +21,6 @@ import { TokenService } from '@identity-application/services/token.service';
 import { UserRepository } from '@identity-domain/user/repositories/user.repository';
 import { EmailVerificationRepository } from '@identity-domain/verification/repositories/email-verification.repository';
 import { PhoneNumberVerificationRepository } from '@identity-domain/verification/repositories/phone-number-verification.repository';
-import { AuthController } from '@identity-infrastructure/http/controllers/auth.controller';
-import { UserController } from '@identity-infrastructure/http/controllers/user.controller';
 import { KafkaModule } from '@identity-infrastructure/messaging/kafka/kafka.module';
 import { PgModule } from '@identity-infrastructure/persistence/pg/pg.module';
 import { PgService } from '@identity-infrastructure/persistence/pg/pg.service';
@@ -32,6 +30,8 @@ import { PgUserRepository } from '@identity-infrastructure/persistence/pg/reposi
 import { CookieAuthService } from '@identity-infrastructure/services/cookie-auth.service';
 import { JwtTokenService } from '@identity-infrastructure/services/jwt-token.service';
 import { S3Module } from '@identity-infrastructure/storage/s3/s3.module';
+import { AuthController } from '@identity-presentation/http/controllers/auth.controller';
+import { UserController } from '@identity-presentation/http/controllers/user.controller';
 
 const CommandHandlers = [
   IssueEmailChangeHandler,
