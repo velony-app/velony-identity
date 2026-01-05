@@ -15,7 +15,6 @@ import { v7 as uuidv7 } from 'uuid';
 
 import { TypedConfigService } from '@config/typed-config.service';
 
-import { DomainEvent } from '@shared-kernel/libs/domain-event';
 
 import {
   type OutboxPersistence,
